@@ -36,7 +36,7 @@ public class HeadRotation : MonoBehaviour
 
         headRotation = targetObject.GetComponent<SendCameraTransform>().opponentRotation;
         hr = headRotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(new Vector3( hr.x, hr.y + 180, hr.z ));
+        transform.rotation = Quaternion.Euler(new Vector3( hr.x / 2, ( hr.y + 180 ) / 2, hr.z / 2));
         Debug.Log(headRotation);
         
     }
