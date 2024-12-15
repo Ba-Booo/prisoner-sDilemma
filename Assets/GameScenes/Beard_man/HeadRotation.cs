@@ -6,8 +6,6 @@ using Photon.Pun;
 public class HeadRotation : MonoBehaviour
 {
 
-    bool findObject = true;
-
     public SendCameraTransform sct;
 
     public GameObject targetObject;
@@ -28,16 +26,14 @@ public class HeadRotation : MonoBehaviour
     void Update()
     {
 
-        if( PhotonNetwork.IsMasterClient && findObject )
+        if( PhotonNetwork.IsMasterClient && sct.clone == 0)
         {
             targetObject = GameObject.Find("Opponent");
-            findObject = false;
         }
 
         headRotation = targetObject.GetComponent<SendCameraTransform>().opponentRotation;
         hr = headRotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(new Vector3( hr.x / 2, ( hr.y + 180 ) / 2, hr.z / 2));
-        Debug.Log(headRotation);
+        transform.rotation = Quaternion.Euler(new Vector3( hr.x, ( hr.y + 180 ), hr.z));
         
     }
 }

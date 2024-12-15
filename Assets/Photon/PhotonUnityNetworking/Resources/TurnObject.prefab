@@ -49,6 +49,7 @@ MonoBehaviour:
   clone: 0
   pv: {fileID: 2167091540519291096}
   opponentRotation: {x: 0, y: 0, z: 0, w: 0}
+  d: 0
 --- !u!114 &2167091540519291096
 MonoBehaviour:
   m_ObjectHideFlags: 0

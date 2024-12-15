@@ -12,6 +12,11 @@ public class CameraMove : MonoBehaviour
     float xRotation;
     float yRotation;
 
+    //상호작용시 기준점
+    bool standardStore = true;
+    Vector3 rotationStandard;
+    public Transform standard;
+
     void Start()
     {
         
@@ -33,14 +38,32 @@ public class CameraMove : MonoBehaviour
 
         Quaternion mouseRotation = Quaternion.Euler( xRotation, yRotation, 0);
 
-        //카메라 범위
-        yRotation = Mathf.Clamp( yRotation, -60f, 60f );
-        xRotation = Mathf.Clamp( xRotation, -30f, 80f );
+        transform.rotation = Quaternion.Slerp( transform.rotation, mouseRotation, Time.deltaTime * 2f );
+
+
 
         //회전
-        if ( !CameraInteraction.ClipboardSituation )
+        if ( CameraInteraction.ClipboardSituation && standardStore)
         {
-            transform.rotation = Quaternion.Slerp( transform.rotation, mouseRotation, Time.deltaTime * 2f );
+            
+            rotationStandard = standard.eulerAngles;
+            standardStore = false;
+
+        }
+        else if ( CameraInteraction.ClipboardSituation && !standardStore)
+        {
+
+            yRotation = Mathf.Clamp( yRotation, rotationStandard.y + 165f, rotationStandard.y + 195f );//좌우
+            xRotation = Mathf.Clamp( xRotation, rotationStandard.x -60f, rotationStandard.x );
+
+        }
+        else
+        {
+
+            yRotation = Mathf.Clamp( yRotation, -60f, 60f );
+            xRotation = Mathf.Clamp( xRotation, -30f, 80f );
+            standardStore = true;
+
         }
 
     }

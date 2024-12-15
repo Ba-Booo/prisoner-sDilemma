@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class CameraInteraction : MonoBehaviour
 {
-
-    //포톤
-    ///public PhotonView PV;
     
     //클립보드
     public static bool ClipboardSituation;
@@ -14,6 +11,9 @@ public class CameraInteraction : MonoBehaviour
     RaycastHit hit;
     public BoxCollider OObject;
     public BoxCollider XObject;
+
+    public bool choice;
+    public bool result = false;
 
     void Update()
     {
@@ -28,7 +28,7 @@ public class CameraInteraction : MonoBehaviour
             ClipboardSituation = false;
         }
 
-        if( ClipboardSituation )
+        if( ClipboardSituation && !result)
         {
             GameObject.Find("Clipboard").GetComponent<ClipboardMove>().Execution();
             OObject.enabled = true;
@@ -42,12 +42,16 @@ public class CameraInteraction : MonoBehaviour
         }
 
         //ox
-        // if( Input.GetMouseButtonDown(0) && Physics.Raycast(transform.position, transform.forward, out hit) && !ClipboardSituation )
-        // {
-        //     ClipboardSituation = true;
-        // }
-        
-
+        if( Input.GetMouseButtonDown(0) && Physics.Raycast(transform.position, transform.forward, out hit) && hit.transform.gameObject.name == "O" )         //o 
+        {
+            choice = true;
+            result = true;
+        }
+        else if( Input.GetMouseButtonDown(0) && Physics.Raycast(transform.position, transform.forward, out hit) && hit.transform.gameObject.name == "X" )    //x
+        {
+            choice = false;
+            result = true;
+        }
 
     }
 }
