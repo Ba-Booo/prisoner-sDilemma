@@ -9,6 +9,7 @@ public class CameraInteraction : MonoBehaviour
     public static bool ClipboardSituation;
     public float range;
     RaycastHit hit;
+    public GameObject OX;
     public BoxCollider OObject;
     public BoxCollider XObject;
 
@@ -19,7 +20,7 @@ public class CameraInteraction : MonoBehaviour
     {
         
         //클립보드 들기
-        if( Input.GetMouseButtonDown(0) && Physics.Raycast(transform.position, transform.forward, out hit) && !ClipboardSituation )
+        if( Input.GetMouseButtonUp(0) && Physics.Raycast(transform.position, transform.forward, out hit) && !ClipboardSituation )
         {
             ClipboardSituation = true;
         }
@@ -33,22 +34,26 @@ public class CameraInteraction : MonoBehaviour
             GameObject.Find("Clipboard").GetComponent<ClipboardMove>().Execution();
             OObject.enabled = true;
             XObject.enabled = true;
+            OX.SetActive(true); 
         }
         else
         {
             GameObject.Find("Clipboard").GetComponent<ClipboardMove>().Restore();
             OObject.enabled = false;
             XObject.enabled = false;
+            OX.SetActive(false); 
         }
 
         //ox
         if( Input.GetMouseButtonDown(0) && Physics.Raycast(transform.position, transform.forward, out hit) && hit.transform.gameObject.name == "O" )         //o 
         {
+            ClipboardSituation = false;
             choice = true;
             result = true;
         }
         else if( Input.GetMouseButtonDown(0) && Physics.Raycast(transform.position, transform.forward, out hit) && hit.transform.gameObject.name == "X" )    //x
         {
+            ClipboardSituation = false;
             choice = false;
             result = true;
         }

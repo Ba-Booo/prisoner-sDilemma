@@ -7,26 +7,31 @@ using TMPro;
 public class ScoreText : MonoBehaviour
 {
 
-    // bool truefalse;
+    public bool truefalse;
 
-    // int playerScore;
-    // int otherScore;
+    int playerScore = 0;
+    int otherScore = 0;
 
-    // public TextMeshProUGUI printScoreCode;
-    // SendCameraTransform sct;
+    TextMeshProUGUI printScoreCode;
+    public SendCameraTransform sct;
+
+    void Start()
+    {
+        printScoreCode = GetComponent<TextMeshProUGUI>();
+    }
 
 
-    // void Update()
-    // {
+    void Update()
+    {
         
-    //     if(truefalse)
-    //     {
-    //         printScoreCode.text = "플레이어 : " + playerScore;
-    //     }
-    //     else
-    //     {
-    //         printScoreCode.text = "상대방 : " + otherScore;
-    //     }
+        if(truefalse)
+        {
+            printScoreCode.text = "플레이어 : " + playerScore;
+        }
+        else
+        {
+            printScoreCode.text = "상대방 : " + otherScore;
+        }
 
-    // }
+    }
 }
